@@ -1,0 +1,23 @@
+
+* {
+    
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+} 
+.background{
+    
+    background-color: aqua;
+}
+
+.texto{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-items: center;
+    width: 50vh;
+    margin: 40px;
+    color: rgb(108, 108, 100);
+    padding: 4rem
+    font: size 900px;
+}
