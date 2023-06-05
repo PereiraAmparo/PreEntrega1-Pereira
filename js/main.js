@@ -87,18 +87,82 @@ function listarPrestamos(lista){
         let p = lista[i];
         alert("prestamo numero " + (i+1) + ": " +
                  "\n Monto total: " + p.getMonto() + " pesos" + 
-                 "\n Cantidad de cuotas a pagar: " + p.getCantCuotas() + 
+                 "\n Cantidad de cuotas: " + p.getCantCuotas() + 
                  "\n Amortizacion Constante: " + p.getAmortizacion() + " pesos" +
                  "\n Interes total a pagar: " + p.getInteres() + " pesos" +
-                 "\n Cuotas a pagar: ");
+                 "\n Cuotas restantes: " + ((p.getCuotasApagar())-(p.getCuotasPagadas())));
     }
 }
+
+function pagarCuotas(prestamosCliente){
+    let prestamo = (prompt("Porfavor ingrese el numero del prestamo del cual desea pagar cuotas"))-1;
+    if(prestamosCliente.includes(prestamosCliente[prestamo])){
+        let cuotasPagas =parseInt(prompt("Porfavor ingrese cuantas cuotas ha pagado"));
+        while(cuotasPagas < 0 || isNaN(cuotasPagas)){
+            cuotasPagas = parseInt(prompt("Se ha ingresado un numero de cuotas incorrecto, por favor ingrese un numero valido."));
+        }
+        let cuotasPagar = (prestamosCliente[prestamo].getCuotasApagar()) - (prestamosCliente[prestamo].getCuotasPagadas());
+        if((cuotasPagar - cuotasPagas) > 0){
+            prestamosCliente[prestamo].setCuotasPagadas(cuotasPagas);
+        }else{
+           prestamosCliente.splice(prestamo, 1);
+        }
+    }else{
+        alert("se ha ingresado un numero de prestamo incorrecto, porfavor vuelva a intentar con un numero valido");
+    }
+}
+
+function listarMayor(lista){
+    let ret = [];
+    let montoMax = 0;
+    for(let i = 0; i < lista.length; i++) {
+        if(lista[i].getMonto() > montoMax){
+            montoMax = lista[i].getMonto();
+            ret = [];
+            ret.push(lista[i]);
+        }
+        else if(lista[i].getMonto() == montoMax){
+            ret.push(lista[i]);
+        }
+    }
+    listarPrestamos(ret);
+}
+
+function listarMenor(lista){
+    let ret = [];
+    let montoMin = 100100;
+    for(let i = 0; i < lista.length; i++) {
+        if(lista[i].getMonto() < montoMin){
+            montoMin = lista[i].getMonto();
+            ret = [];
+            ret.push(lista[i]);
+        }
+        else if(lista[i].getMonto() == montoMin){
+            ret.push(lista[i]);
+        }
+    }
+    listarPrestamos(ret);
+}
+
+function listarCuotas(lista){
+    let ret = [];
+    let cuotas = prompt("Ingrese la cantidad de cuotas de los prestamos que deaea buscar, sean de 6, 12 o 24 cuotas");
+    while(cuotas != 6 && cuotas != 12 && cuotas != 24){
+        cuotas = prompt("Se ha ingresado una cantidad de cuotas invalida, porfavor especifique si quiere buscar prestamos de 6, 12 o 24 cuotas.");
+    }
+    for (let i = 0; i < lista.length; i++) {
+        if (lista[i].getCantCuotas() == cuotas){
+            ret.push(lista[i]);
+        }
+    }
+    listarPrestamos(ret);
+}   
 
 function inicio(){
     let repetir = true;
     let prestamosCliente = [];
     while(repetir){
-        let accion = prompt("ingrese el numero que corresponda a la accion que quiera hacer \n 1.ingresar un prestamo \n 2.Ver los prestamos ingresados \n 3.Pagar una Cuota \n 4.salir")
+        let accion = prompt("Ingrese el numero que corresponda a la accion desea realizar \n 1.Ingresar un prestamo \n 2.Listar prestamos ingresados \n 3.Pagar cuotas \n 4.Buscar Prestamos \n 5.Salir")
         if(accion == 1){
             let Monto = MontoPrestamo();
             let Cuotas = CantidadCuotas();
@@ -107,12 +171,35 @@ function inicio(){
             prestamosCliente.push(prestamo);
         }
         else if(accion == 2){
-            listarPrestamos(prestamosCliente);
+            if(prestamosCliente.length == 0){
+                alert("aun no se ha ingresado un prestamo al sistema.");
+            }else{
+                listarPrestamos(prestamosCliente);
+            }
         }
         else if(accion == 3){
-            alert("WIP, wippy, wippy good");
+            pagarCuotas(prestamosCliente);
         }
         else if(accion == 4){
+            if(prestamosCliente.length == 0){
+                alert("aun no se ha ingresado un prestamo al sistema.");
+            }else{
+                let opcion = parseInt(prompt("Ingrese que desea buscar: \n 1.Listar prestamo mas grande  \n 2.Listar prestamo mas chico  \n 3.Listar prestamos por cantidad de cuotas"));
+                while(opcion > 4 || opcion < 0){
+                    opcion = parseInt(prompt("Se ha ingresado una opcion incorrecta porfavor eliga una opcion valida. \n 1.Listar prestamo mas grande  \n 2.Listar prestamo mas chico  \n 3.Listar prestamos por cantidad de cuotas"));
+                }
+                if(opcion == 1){
+                    listarMayor(prestamosCliente);
+                }
+                else if(opcion == 2){
+                    listarMenor(prestamosCliente);
+                }
+                else if(opcion == 3){
+                    listarCuotas(prestamosCliente);
+                }
+            }
+        }
+        else if(accion == 5){
             repetir = false;
         }
         else{
