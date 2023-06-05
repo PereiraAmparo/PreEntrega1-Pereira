@@ -53,7 +53,7 @@ function MontoPrestamo(){
         } else if(montoPrestamo < 10000) {
             montoPrestamo = parseInt(prompt("El monto ingresado es inferior a 100000 pesos, porfavor ingrese un monto entre 10000 y 100000 pesos."));
         } else if(isNaN(montoPrestamo)){
-            montoPrestamo = parseInt(prompt("Se ha ingresado un monto incorrecto, asegurese de ingresar un número entero entre 10000 y 100000 pesos."));
+            montoPrestamo = parseInt(prompt("Se ha ingresado un monto incorrecto, asegúrese de ingresar un número entero entre 10000 y 100000 pesos."));
         }
     }
     return montoPrestamo;
@@ -62,7 +62,7 @@ function MontoPrestamo(){
 function CantidadCuotas(){
     let cantidadCuotas = prompt("Porfavor ingrese la cantidad de cuotas que desee (puede elegir entre 6, 12 o 24 pagos)");
     while(cantidadCuotas != 6 && cantidadCuotas != 12 && cantidadCuotas != 24){
-        cantidadCuotas = prompt("Se ha ingresado una cantidad de cuotas invalida, porfavor especifique si quiere 6, 12 o 24 cuotas.");
+        cantidadCuotas = prompt("Se ha ingresado una cantidad de cuotas invalida, por favor especifique si quiere 6, 12 o 24 cuotas.");
     }
     return cantidadCuotas;
 }
@@ -76,7 +76,7 @@ function Calculos(prestamo){
     let amortizacionPrestamo = (monto/cantCuotas).toFixed(2);
     prestamo.setAmortizacion(amortizacionPrestamo);
     prestamo.setInteres(interesTotal);
-    alert("Monto del Prestamo: " + prestamo.getMonto() + " pesos\n" +
+    alert("Monto del Préstamo: " + prestamo.getMonto() + " pesos\n" +
     "Amortización Constante: "  + amortizacionPrestamo + " pesos\n" +
     "Interés total a pagar: " + interesTotal + " pesos\n" +
     "Cuota mensual: " + cuota + " pesos\n");
@@ -85,21 +85,21 @@ function Calculos(prestamo){
 function listarPrestamos(lista){
     for (let i = 0; i< lista.length; i++) {
         let p = lista[i];
-        alert("prestamo numero " + (i+1) + ": " +
+        alert("Préstamo numero " + (i+1) + ": " +
                  "\n Monto total: " + p.getMonto() + " pesos" + 
                  "\n Cantidad de cuotas: " + p.getCantCuotas() + 
-                 "\n Amortizacion Constante: " + p.getAmortizacion() + " pesos" +
-                 "\n Interes total a pagar: " + p.getInteres() + " pesos" +
+                 "\n Amortización Constante: " + p.getAmortizacion() + " pesos" +
+                 "\n Interés total a pagar: " + p.getInteres() + " pesos" +
                  "\n Cuotas restantes: " + ((p.getCuotasApagar())-(p.getCuotasPagadas())));
     }
 }
 
 function pagarCuotas(prestamosCliente){
-    let prestamo = (prompt("Porfavor ingrese el numero del prestamo del cual desea pagar cuotas"))-1;
+    let prestamo = (prompt("Porfavor ingrese el numero del préstamo del cual desea pagar cuotas"))-1;
     if(prestamosCliente.includes(prestamosCliente[prestamo])){
-        let cuotasPagas =parseInt(prompt("Porfavor ingrese cuantas cuotas ha pagado"));
+        let cuotasPagas =parseInt(prompt("Por favor ingrese cuantas cuotas ha pagado"));
         while(cuotasPagas < 0 || isNaN(cuotasPagas)){
-            cuotasPagas = parseInt(prompt("Se ha ingresado un numero de cuotas incorrecto, por favor ingrese un numero valido."));
+            cuotasPagas = parseInt(prompt("Se ha ingresado un número de cuotas incorrecto, por favor ingrese un numero valido."));
         }
         let cuotasPagar = (prestamosCliente[prestamo].getCuotasApagar()) - (prestamosCliente[prestamo].getCuotasPagadas());
         if((cuotasPagar - cuotasPagas) > 0){
@@ -108,7 +108,7 @@ function pagarCuotas(prestamosCliente){
            prestamosCliente.splice(prestamo, 1);
         }
     }else{
-        alert("se ha ingresado un numero de prestamo incorrecto, porfavor vuelva a intentar con un numero valido");
+        alert("Se ha ingresado un numero de prestamo incorrecto, por favor vuelva a intentar con un numero valido");
     }
 }
 
@@ -146,9 +146,9 @@ function listarMenor(lista){
 
 function listarCuotas(lista){
     let ret = [];
-    let cuotas = prompt("Ingrese la cantidad de cuotas de los prestamos que deaea buscar, sean de 6, 12 o 24 cuotas");
+    let cuotas = prompt("Ingrese la cantidad de cuotas de los préstamos que desea buscar, sean de 6, 12 o 24 cuotas");
     while(cuotas != 6 && cuotas != 12 && cuotas != 24){
-        cuotas = prompt("Se ha ingresado una cantidad de cuotas invalida, porfavor especifique si quiere buscar prestamos de 6, 12 o 24 cuotas.");
+        cuotas = prompt("Se ha ingresado una cantidad de cuotas invalida, por favor especifique si quiere buscar prestamos de 6, 12 o 24 cuotas.");
     }
     for (let i = 0; i < lista.length; i++) {
         if (lista[i].getCantCuotas() == cuotas){
@@ -162,7 +162,7 @@ function inicio(){
     let repetir = true;
     let prestamosCliente = [];
     while(repetir){
-        let accion = prompt("Ingrese el numero que corresponda a la accion desea realizar \n 1.Ingresar un prestamo \n 2.Listar prestamos ingresados \n 3.Pagar cuotas \n 4.Buscar Prestamos \n 5.Salir")
+        let accion = prompt("Ingrese el numero que corresponda a la acción desea realizar \n 1.Ingresar un préstamo \n 2.Listar préstamos ingresados \n 3.Pagar cuotas \n 4.Buscar préstamos \n 5.Salir")
         if(accion == 1){
             let Monto = MontoPrestamo();
             let Cuotas = CantidadCuotas();
@@ -172,7 +172,7 @@ function inicio(){
         }
         else if(accion == 2){
             if(prestamosCliente.length == 0){
-                alert("aun no se ha ingresado un prestamo al sistema.");
+                alert("Aún no se ha ingresado un préstamo al sistema.");
             }else{
                 listarPrestamos(prestamosCliente);
             }
@@ -182,11 +182,11 @@ function inicio(){
         }
         else if(accion == 4){
             if(prestamosCliente.length == 0){
-                alert("aun no se ha ingresado un prestamo al sistema.");
+                alert("Aún no se ha ingresado un préstamo al sistema.");
             }else{
-                let opcion = parseInt(prompt("Ingrese que desea buscar: \n 1.Listar prestamo mas grande  \n 2.Listar prestamo mas chico  \n 3.Listar prestamos por cantidad de cuotas"));
+                let opcion = parseInt(prompt("Ingrese que desea buscar: \n 1.Listar préstamo/s más grande/s  \n 2.Listar préstamo/s más chicos/s  \n 3.Buscar préstamos por cantidad de cuotas"));
                 while(opcion > 4 || opcion < 0){
-                    opcion = parseInt(prompt("Se ha ingresado una opcion incorrecta porfavor eliga una opcion valida. \n 1.Listar prestamo mas grande  \n 2.Listar prestamo mas chico  \n 3.Listar prestamos por cantidad de cuotas"));
+                    opcion = parseInt(prompt("Se ha ingresado una opción incorrecta, por favor elija una opción valida. \n 1.Listar préstamo/s más grande/s  \n 2.Listar préstamo/s más chico/s  \n 3.Listar préstamos por cantidad de cuotas"));
                 }
                 if(opcion == 1){
                     listarMayor(prestamosCliente);
@@ -203,7 +203,7 @@ function inicio(){
             repetir = false;
         }
         else{
-            alert("se ha ingresado una accion incorrecta, porfavor re-ingrese su seleccion.");
+            alert("Se ha ingresado una acción incorrecta, por favor re-ingrese su selección.");
         }
     }
 }
