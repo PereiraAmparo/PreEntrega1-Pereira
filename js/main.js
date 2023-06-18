@@ -222,3 +222,52 @@ function inicio(){
 
 
 inicio();
+
+let parrafos = document.getElementsByClassName("parrafo");
+
+console.log(parrafos);
+
+parrafos[0].innerHTML = "Ahora puedes hacerte socio desde la WEB!";
+/*PONER EN UNA FUNCION CON EVENTOS
+let email = document.getElementById("email");
+let emailError = document.getElementById("emailError");
+let cedula = document.getElementById("cedula");
+let cedulaError = document.getElementById("cedulaError");
+
+if (email.value == ""){
+    emailError.className = "text-danger";
+    emailError.innerHTML = "Debe ingresar direccion de mail";
+ } else {
+    emailError.innerHTML = "";
+ }
+
+ if (cedula.value == ""){
+    cedulaError.className = "text-danger";
+    cedulaError.innerHTML = "Debe ingresar numero de cedula de identidad";
+ } else {
+    cedulaError.innerHTML = "";
+ }*/
+//el pega las fotos aca de la url, no los almacena como yo!!!!
+ const productos = [
+    {id:1, nombre:"Garantia de Alquiler", img:"./multimedia/imgagenes/garantiaAlquiler"},
+    {id:2, nombre:"Prestamos quinceañera", img:"./multimedia/imagenes/quinceanera"},
+    {id:3, nombre: "Prestamos para Estudiantes", img:"./multimedia/imagenes/prestamoEstudiante"},
+    {id:4, nombre:"Prestamos se agrando la familia", img:"./multimedia/imagenes/camaBebe"},
+
+
+ ]
+
+ for (const producto of productos){
+    let div = document.createElement("div");
+    div.className = "col-md-4";
+    div.innerHTML = `<img src=${producto.imagen} class= "img-fluid">
+    <h3>${producto.nombre}</h3>`;
+
+      //yo aca pondria un boton que dijera "quiero mas informacion" abajo de la foto.
+   // <button>${producto.}????
+   document.getElementById("productos").appendChild(div);
+
+   
+
+
+    }

@@ -6,14 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <title>comision 43095 JS Amparo Pereira</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body class="background">
     <main>
         <div>
             <h1 class="texto">Comision 43095 JS Amparo Pereira</h1>
         </div>
+
+        <section id="contenido">
+            <h2 id="titulo">NOVEDADES</h2>
+
+            <p class="parrafo">aaaaa</p>
+            <p class="parrafo">Solo necesitas llenar el Formulario</p>
+             
+        </section>
+        <div class="formulario">
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <form>
+                        <div class="mb-3">
+                          <label for="nombre" class="form-label">Nombre</label>
+                          <input type="text" class="form-control" id="nombre" >
+                          
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="apellido" >
+                            
+                          </div>
+                          <div class="mb-3">
+                            <label for="cedula" class="form-label">Cedula de Identidad</label>
+                            <input type="number" class="form-control" id="cedula" >
+                            <div id="cedulaError"class=form-text></div>
+                            
+                          </div>
+                        <div class="mb-3">
+                          <label for="telefono" class="form-label">Telefono</label>
+                          <input type="number" class="form-control" id="telefono">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Direccion de mail</label>
+                            <input type="email" class="form-control" id="email" >
+                            <div id="emailError"class=form-text></div>
+                          </div>
+                        
+                        <button type="button" class="btn btn-primary">Quiero ser socio</button>
+                      </form>
+                </div>
+            </div>
+            <div class="container">
+                <div id="poductos"class= "row">
+                    
+                </div>
+            </div>
+            
+        </div>
     </main>
-   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="./js/main.js"></script>  
    
 </body>
