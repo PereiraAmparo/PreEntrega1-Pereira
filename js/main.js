@@ -45,27 +45,17 @@ class Prestamo{
     }
 }
 
-function montoPrestamo(){
-    let montoPrestamo = parseInt(prompt("Ingrese el monto a solicitar (por favor ingrese un valor entre 10.000 y 100.000)"));
-    while(montoPrestamo > 100000 || montoPrestamo < 10000 || isNaN(montoPrestamo)){
-        if(montoPrestamo > 100000){
-            montoPrestamo = parseInt(prompt("El monto ingresado es superior a 100000 pesos, porfavor ingrese un monto entre 10000 y 100000 pesos."));
-        } else if(montoPrestamo < 10000) {
-            montoPrestamo = parseInt(prompt("El monto ingresado es inferior a 10000 pesos, porfavor ingrese un monto entre 10000 y 100000 pesos."));
-        } else if(isNaN(montoPrestamo)){
-            montoPrestamo = parseInt(prompt("Se ha ingresado un monto incorrecto, asegúrese de ingresar un número entero entre 10000 y 100000 pesos."));
-        }
+class Usuario{
+    constructor(nombre,apellido,ci,tel,mail){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.ci = ci;
+        this.tel = tel;
+        this.mail = mail;
     }
-    return montoPrestamo;
 }
 
-function cantidadCuotas(){
-    let cantidadCuotas = prompt("Porfavor ingrese la cantidad de cuotas que desee (puede elegir entre 6, 12 o 24 pagos)");
-    while(cantidadCuotas != 6 && cantidadCuotas != 12 && cantidadCuotas != 24){
-        cantidadCuotas = prompt("Se ha ingresado una cantidad de cuotas invalida, por favor especifique si quiere 6, 12 o 24 cuotas.");
-    }
-    return cantidadCuotas;
-}
+
 
 function calculos(prestamo){
     let monto = prestamo.getMonto();
@@ -76,28 +66,33 @@ function calculos(prestamo){
     let amortizacionPrestamo = (monto/cantCuotas).toFixed(2);
     prestamo.setAmortizacion(amortizacionPrestamo);
     prestamo.setInteres(interesTotal);
-    alert("Monto del Préstamo: " + prestamo.getMonto() + " pesos\n" +
-    "Amortización Constante: "  + amortizacionPrestamo + " pesos\n" +
-    "Interés total a pagar: " + interesTotal + " pesos\n" +
-    "Cuota mensual: " + cuota + " pesos\n");
 }
 
-function listarPrestamos(lista){
-    if(lista.length == 0){
-        alert("Aún no se ha ingresado un préstamo al sistema.");
-    }else{
-        for (let i = 0; i< lista.length; i++) {
-            let p = lista[i];
-            alert("Préstamo numero " + (i+1) + ": " +
-                     "\n Monto total: " + p.getMonto() + " pesos" + 
-                     "\n Cantidad de cuotas: " + p.getCantCuotas() + 
-                     "\n Amortización Constante: " + p.getAmortizacion() + " pesos" +
-                     "\n Interés total a pagar: " + p.getInteres() + " pesos" +
-                     "\n Cuotas restantes: " + ((p.getCuotasApagar())-(p.getCuotasPagadas())));
+function listarPrestamos(){
+    if(prestamosUsuario.length != 0){
+        let ul = document.getElementById("listaPrestamo");
+        ul.innerHTML = "";
+        for (let i = 0; i< prestamosUsuario.length; i++) {
+            document.getElementById("parrafoPrestamo").innerHTML = " ";
+            let p = prestamosUsuario[i];
+            let node = document.createElement("li");
+            let text = document.createTextNode("Préstamo numero " + (i+1) + ": " +
+                                                "\n Monto total: " + p.getMonto() + " pesos" + 
+                                                "\n Cantidad de cuotas: " + p.getCantCuotas() + 
+                                                "\n Amortización Constante: " + p.getAmortizacion() + " pesos" +
+                                                "\n Interés total a pagar: " + p.getInteres() + " pesos" +
+                                                "\n Cuotas restantes: " + ((p.getCuotasApagar())-(p.getCuotasPagadas())));
+            
+            node.appendChild(text);
+            ul.appendChild(node);
         }
+    }else{
+        document.getElementById("parrafoPrestamo").innerHTML = "No se ha ingresado un prestamo aún";
     }
 }
 
+
+/*
 function pagarCuotas(prestamosCliente){
     if(prestamosCliente.length <= 0){
         alert("Aún no se ha ingresado un préstamo al sistema.");
@@ -119,6 +114,7 @@ function pagarCuotas(prestamosCliente){
         }
     }
 }
+
 
 function listarMayor(lista){
     let ret = [];
@@ -164,17 +160,8 @@ function listarCuotas(lista){
         }
     }
     listarPrestamos(ret);
-}   
 
-function ingresoPrestamo(lista) {
-    let Monto = montoPrestamo();
-            let Cuotas = cantidadCuotas();
-            let prestamo = new Prestamo(Monto,Cuotas);
-            calculos(prestamo);
-            lista.push(prestamo);
-}
-
-function menuBusqueda(lista) {
+    function menuBusqueda(lista) {
     if(lista.length == 0){
         alert("Aún no se ha ingresado un préstamo al sistema.");
     }else{
@@ -193,71 +180,92 @@ function menuBusqueda(lista) {
         }
     }
 }
+}*/
 
-function inicio(){
-    let repetir = true;
-    let prestamosCliente = [];
-    while(repetir){
-        let accion = prompt("Ingrese el numero que corresponda a la acción desea realizar \n 1.Ingresar un préstamo \n 2.Listar préstamos ingresados \n 3.Pagar cuotas \n 4.Buscar préstamos \n 5.Salir")
-        if(accion == 1){
-            ingresoPrestamo(prestamosCliente);
-        }
-        else if(accion == 2){
-            listarPrestamos(prestamosCliente);
-        }
-        else if(accion == 3){
-            pagarCuotas(prestamosCliente);
-        }
-        else if(accion == 4){
-            menuBusqueda(prestamosCliente);
-        }
-        else if(accion == 5){
-            repetir = false;
-        }
-        else{
-            alert("Se ha ingresado una acción incorrecta, por favor re-ingrese su selección.");
-        }
-    }
+function ingresoPrestamo(event) {
+    event.preventDefault();
+    let Monto = parseInt(document.getElementById("inputMonto").value);
+    let Cuotas = document.getElementById("selectCuotas").value;
+    let prestamo = new Prestamo(Monto,Cuotas);
+    calculos(prestamo);
+    prestamosUsuario.push(prestamo);
+    document.getElementById("confirmPrestamo").innerHTML = "Se ha ingresado el prestamo número " + (prestamosUsuario.indexOf(prestamo) + 1) + " exitosamente";
 }
 
 
-inicio();
-
+const prestamosUsuario = [];
+const Usuarios = [];
 let parrafos = document.getElementsByClassName("parrafo");
 
 console.log(parrafos);
 
 parrafos[0].innerHTML = "Ahora puedes hacerte socio desde la WEB!";
-/*PONER EN UNA FUNCION CON EVENTOS
-let email = document.getElementById("email");
-let emailError = document.getElementById("emailError");
-let cedula = document.getElementById("cedula");
-let cedulaError = document.getElementById("cedulaError");
+document.getElementById("btnUsuario").addEventListener("click", ingresoUsuario);
+document.getElementById("menuSocio").addEventListener("click", showUsuario);
+document.getElementById("menuPrestamo").addEventListener("click", showPrestamo);
+document.getElementById("menuMostrar").addEventListener("click", showListaPrestamo); 
+document.getElementById("formPrestamo").addEventListener("submit", ingresoPrestamo);
+document.getElementById("btnListarPrestamos").addEventListener("click",listarPrestamos); 
 
-if (email.value == ""){
-    emailError.className = "text-danger";
-    emailError.innerHTML = "Debe ingresar direccion de mail";
- } else {
-    emailError.innerHTML = "";
- }
 
- if (cedula.value == ""){
-    cedulaError.className = "text-danger";
-    cedulaError.innerHTML = "Debe ingresar numero de cedula de identidad";
- } else {
-    cedulaError.innerHTML = "";
- }*/
+
+function showPrestamo(event) {
+    event.preventDefault();
+    let ingresoPrestamo = document.getElementById("secIngresoPrestamo");
+    let ingresoUsuario = document.getElementById("secIngresoUsuario");
+    let listaPrestamos = document.getElementById("secListarPrestamos");
+    ingresoPrestamo.style.display = "block";
+    ingresoUsuario.style.display = "none";
+    listaPrestamos.style.display = "none";
+}
+function showUsuario(event) {
+    event.preventDefault();
+    let ingresoUsuario = document.getElementById("secIngresoUsuario");
+    let ingresoPrestamo = document.getElementById("secIngresoPrestamo");
+    let listaPrestamos = document.getElementById("secListarPrestamos");
+    ingresoPrestamo.style.display = "none";
+    ingresoUsuario.style.display = "block";
+    listaPrestamos.style.display = "none";
+}
+function showListaPrestamo(event) {
+    event.preventDefault();
+    let ingresoUsuario = document.getElementById("secIngresoUsuario");
+    let ingresoPrestamo = document.getElementById("secIngresoPrestamo");
+    let listaPrestamos = document.getElementById("secListarPrestamos");
+    ingresoPrestamo.style.display = "none";
+    ingresoUsuario.style.display = "none";
+    listaPrestamos.style.display = "block";
+}
+
+function ingresoUsuario(event) {
+    event.preventDefault();
+    let email = document.getElementById("email");
+    let emailError = document.getElementById("emailError");
+    let cedula = document.getElementById("cedula");
+    let cedulaError = document.getElementById("cedulaError");
+    if (email.value == "" || cedula.value == ""){
+        emailError.className = "text-danger";
+        emailError.innerHTML = "Debe ingresar direccion de mail";
+        cedulaError.className = "text-danger";
+        cedulaError.innerHTML = "Debe ingresar numero de cedula de identidad";
+    } else {
+        let nombre = document.getElementById("nombre");
+        let apellido = document.getElementById("apellido");
+        let tel = document.getElementById("telefono");
+        new Usuario(nombre.value, apellido.value, tel.value, email.value, cedula.value);
+    }
+}
+
 //el pega las fotos aca de la url, no los almacena como yo!!!!
+/*
  const productos = [
     {id:1, nombre:"Garantia de Alquiler", img:"./multimedia/imgagenes/garantiaAlquiler"},
     {id:2, nombre:"Prestamos quinceañera", img:"./multimedia/imagenes/quinceanera"},
     {id:3, nombre: "Prestamos para Estudiantes", img:"./multimedia/imagenes/prestamoEstudiante"},
     {id:4, nombre:"Prestamos se agrando la familia", img:"./multimedia/imagenes/camaBebe"},
-
-
  ]
 
- for (const producto of productos){
+ for (let producto of productos){
     let div = document.createElement("div");
     div.className = "col-md-4";
     div.innerHTML = `<img src=${producto.imagen} class= "img-fluid">
@@ -266,8 +274,5 @@ if (email.value == ""){
       //yo aca pondria un boton que dijera "quiero mas informacion" abajo de la foto.
    // <button>${producto.}????
    document.getElementById("productos").appendChild(div);
-
-   
-
-
-    }
+}
+*/
